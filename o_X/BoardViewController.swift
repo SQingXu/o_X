@@ -7,20 +7,28 @@ import UIKit
 
 class BoardViewController: UIViewController {
 
-    @IBOutlet weak var newGameButton: UIButton!
-    // Create additional IBOutlets here.
+        // Create additional IBOutlets here.
     
+    @IBOutlet weak var boardView: UIView!
+    @IBOutlet weak var newGameButton: UIButton!
+
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view, typically from a nib.
     }
-    
     @IBAction func newGameButtonPressed(sender: UIButton) {
-        print("New game button pressed.")
+        print("New Game")
     }
     
-    // Create additional IBActions here.
-
+    @IBAction func positionButtonPressed(sender: UIButton) {
+        print(sender.tag)
+     
+    }
+    
+    @IBAction func logOutPressed(sender: UIButton) {
+        print("Logout Pressed")
+    }
+    
 }
-
