@@ -5,6 +5,7 @@
 
 import UIKit
 
+
 class BoardViewController: UIViewController {
 
         // Create additional IBOutlets here.
@@ -18,6 +19,10 @@ class BoardViewController: UIViewController {
         
         // Do any additional setup after loading the view, typically from a nib.
     }
+    
+    //create a new instance of a Game object
+    var gameObject = OXGame()
+    
     @IBAction func newGameButtonPressed(sender: UIButton) {
         print("New Game")
     }
