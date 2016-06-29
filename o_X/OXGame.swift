@@ -39,33 +39,34 @@ class OXGame{
         }
     }
     func playMove(onBoardInd:Int) -> CellType{
+        turns+=1
         board[onBoardInd] = whoseTurn()
         return whoseTurn()
     }
     func gameWon() ->Bool{
         
-        if (board[0]==board[3] && board[3]==board[6]){
+        if (board[0]==board[3] && board[3]==board[6] && board[0] != CellType.Empty){
                return true
         }
-        else if (board[1]==board[4] && board[4]==board[7]){
+        else if (board[1]==board[4] && board[4]==board[7] && board[1] != CellType.Empty){
                 return true
         }
-        else if (board[2]==board[5] && board[5]==board[8]){
+        else if (board[2]==board[5] && board[5]==board[8] && board[2] != CellType.Empty){
                 return true
         }
-        else if (board[0]==board[1] && board[1]==board[2]){
+        else if (board[0]==board[1] && board[1]==board[2] && board[0] != CellType.Empty){
                 return true
         }
-        else if (board[3]==board[4] && board[4]==board[5]){
+        else if (board[3]==board[4] && board[4]==board[5] && board[3] != CellType.Empty){
                 return true
         }
-        else if (board[6]==board[7] && board[7]==board[8]){
+        else if (board[6]==board[7] && board[7]==board[8] && board[6] != CellType.Empty){
                 return true
         }
-        else if (board[0]==board[4] && board[4]==board[8]){
+        else if (board[0]==board[4] && board[4]==board[8] && board[0] != CellType.Empty){
                 return true
         }
-        else if (board[2]==board[4] && board[4]==board[6]){
+        else if (board[2]==board[4] && board[4]==board[6] && board[2] != CellType.Empty){
                 return true
         }
         else {
@@ -74,7 +75,7 @@ class OXGame{
             
     }
     func state()->OXGameState{
-        if (turnCount() >= 8){
+        if (turnCount() > 8){
             if (gameWon()==true){
                 return OXGameState.Won
             }
