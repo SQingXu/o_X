@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Board View Controller-->
@@ -26,7 +27,7 @@
                                             <constraint firstAttribute="height" constant="70" id="ezk-qU-o8W"/>
                                             <constraint firstAttribute="width" constant="70" id="oq9-3c-V9j"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                         <state key="normal">
                                             <color key="titleColor" red="0.85882352939999995" green="0.0" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -40,7 +41,7 @@
                                             <constraint firstAttribute="width" constant="70" id="CTe-GN-scm"/>
                                             <constraint firstAttribute="height" constant="70" id="ws6-vx-Xfs"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                         <state key="normal">
                                             <color key="titleColor" red="0.85882352939999995" green="0.0" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -54,7 +55,7 @@
                                             <constraint firstAttribute="height" constant="70" id="GKU-47-xJg"/>
                                             <constraint firstAttribute="width" constant="70" id="bd4-g6-687"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                         <state key="normal">
                                             <color key="titleColor" red="0.85882352939999995" green="0.0" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -68,7 +69,7 @@
                                             <constraint firstAttribute="height" constant="70" id="RyD-jO-6cx"/>
                                             <constraint firstAttribute="width" constant="70" id="utH-hc-lCp"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                         <state key="normal">
                                             <color key="titleColor" red="0.85882352939999995" green="0.0" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -82,7 +83,7 @@
                                             <constraint firstAttribute="width" constant="70" id="V8X-Pp-Vuy"/>
                                             <constraint firstAttribute="height" constant="70" id="pHF-Tw-UGR"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                         <state key="normal">
                                             <color key="titleColor" red="0.85882352939999995" green="0.0" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -96,7 +97,7 @@
                                             <constraint firstAttribute="width" constant="70" id="4Xg-1J-LSM"/>
                                             <constraint firstAttribute="height" constant="70" id="usK-2G-TGO"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                         <state key="normal">
                                             <color key="titleColor" red="0.85882352939999995" green="0.0" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -110,7 +111,7 @@
                                             <constraint firstAttribute="height" constant="70" id="SxA-qv-g2K"/>
                                             <constraint firstAttribute="width" constant="70" id="uSp-ws-uDZ"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                         <state key="normal">
                                             <color key="titleColor" red="0.85882352939999995" green="0.0" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -124,7 +125,7 @@
                                             <constraint firstAttribute="width" constant="70" id="0NO-LK-E9A"/>
                                             <constraint firstAttribute="height" constant="70" id="keS-Vr-f2w"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                         <state key="normal">
                                             <color key="titleColor" red="0.85882352939999995" green="0.0" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -138,7 +139,7 @@
                                             <constraint firstAttribute="height" constant="70" id="8x5-60-1VU"/>
                                             <constraint firstAttribute="width" constant="70" id="IvA-5F-o6v"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                         <state key="normal">
                                             <color key="titleColor" red="0.85882352939999995" green="0.0" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -226,6 +227,15 @@
                                     <action selector="newGameButtonPressed:" destination="ohs-aO-XHk" eventType="touchUpInside" id="x0U-4C-OkK"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4N-tM-jRk">
+                                <rect key="frame" x="523" y="25" width="57" height="30"/>
+                                <state key="normal" title="Settings">
+                                    <color key="titleColor" red="0.85882352939999995" green="0.0" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="8Qd-Da-xEz" kind="show" id="9i1-60-OBv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -233,7 +243,9 @@
                             <constraint firstItem="7PK-3c-z65" firstAttribute="centerX" secondItem="08N-Jb-jEz" secondAttribute="centerX" constant="50" id="6Kq-b5-css"/>
                             <constraint firstItem="jbR-jX-hY5" firstAttribute="leading" secondItem="08N-Jb-jEz" secondAttribute="leading" id="8gO-27-bOn"/>
                             <constraint firstItem="7PK-3c-z65" firstAttribute="centerY" secondItem="08N-Jb-jEz" secondAttribute="centerY" id="9PJ-xP-TVr"/>
+                            <constraint firstItem="A4N-tM-jRk" firstAttribute="top" secondItem="08N-Jb-jEz" secondAttribute="topMargin" constant="25" id="CzU-YL-WZf"/>
                             <constraint firstItem="sd6-k4-VxV" firstAttribute="centerY" secondItem="08N-Jb-jEz" secondAttribute="centerY" constant="45" id="Ezx-AQ-b6E"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="A4N-tM-jRk" secondAttribute="trailing" id="Gp8-1C-j6h"/>
                             <constraint firstItem="edi-DL-9TM" firstAttribute="top" secondItem="08N-Jb-jEz" secondAttribute="top" constant="25" id="Hsm-wA-qTf"/>
                             <constraint firstAttribute="bottom" secondItem="jbR-jX-hY5" secondAttribute="bottom" constant="45" id="I2i-Th-HDw"/>
                             <constraint firstItem="QUS-iy-ar8" firstAttribute="centerX" secondItem="08N-Jb-jEz" secondAttribute="centerX" constant="-45" id="JRY-et-f3I"/>
@@ -257,6 +269,41 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LkJ-Iz-m6G" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="277" y="559"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="djH-Lk-wGy">
+            <objects>
+                <viewController id="8Qd-Da-xEz" customClass="SettingsViewController" customModule="o_X" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dU3-kJ-tZP"/>
+                        <viewControllerLayoutGuide type="bottom" id="kDa-mm-blx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ez9-Lz-ayV">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bFd-7X-pgE">
+                                <rect key="frame" x="146" y="113" width="51" height="31"/>
+                            </switch>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gIk-kq-HCG">
+                                <rect key="frame" x="146" y="379" width="46" height="30"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleColor" red="0.85882352939999995" green="0.0" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="backButtonPressed:" destination="8Qd-Da-xEz" eventType="touchUpInside" id="d6l-dJ-ffT"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="gameModeSwitch" destination="bFd-7X-pgE" id="hTr-bM-BMF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tqj-gR-nAd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="943" y="559"/>
         </scene>
     </scenes>
 </document>
