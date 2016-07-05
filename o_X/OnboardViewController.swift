@@ -1,37 +1,42 @@
 //
-//  SettingsViewController.swift
+//  OnboardViewController.swift
 //  o_X
 //
-//  Created by David Xu on 6/30/16.
+//  Created by David Xu on 7/2/16.
 //  Copyright © 2016 iX. All rights reserved.
 //
 
 import UIKit
 
-class SettingsViewController: UIViewController {
-    
-    
-    @IBOutlet weak var gameModeSwitch: UISwitch!
-    
+class OnboardViewController: UIViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        gameModeSwitch.on = GameSettingController.sharedInstance.currentSettings.gameModeSwitch
+        self.navigationController?.navigationBarHidden = true
 
         // Do any additional setup after loading the view.
+    }
+    @IBAction func dButtonPressed(sender: UIButton) {
+        if sender.currentTitle == "X" {
+            sender.setTitle("O", forState: UIControlState.Normal)
+        }
+        else{
+            sender.setTitle("X", forState: UIControlState.Normal)
+        }
+        
+    }
+    override func viewWillAppear(animated: Bool) {
+        self.navigationController?.navigationBarHidden = true
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    override func viewWillDisappear(animated: Bool) {
+        self.navigationController?.navigationBarHidden = false
+    }
     
-    @IBAction func backButtonPressed(sender: UIButton) {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-    @IBAction func gameModeIsChanged(sender: UISwitch) {
-        GameSettingController.sharedInstance.gameModeChange()
-        
-    }
 
     /*
     // MARK: - Navigation

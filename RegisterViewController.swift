@@ -20,7 +20,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                 // switch to main storyboard
                 let controller = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
                 UIApplication.sharedApplication().keyWindow?.rootViewController = controller
-                
+                OXGameController.sharedInstance.restartGame()
             } else {
                 // show alertview
                 let alert = UIAlertController(title: "Register Failed", message: message, preferredStyle: UIAlertControllerStyle.Alert)

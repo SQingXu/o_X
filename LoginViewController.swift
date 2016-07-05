@@ -8,14 +8,30 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController,UITextFieldDelegate {
 
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var emailField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        emailField.delegate = self
+        passwordField.delegate = self
 
         // Do any additional setup after loading the view.
+    }
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        emailField.becomeFirstResponder()
+        
+    }
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == emailField{
+            passwordField.becomeFirstResponder()
+        }
+        else if textField == passwordField{
+            passwordField.resignFirstResponder()
+        }
+        return true
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,6 +45,7 @@ class LoginViewController: UIViewController {
                     // switch to main storyboard
                     let controller = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
                     UIApplication.sharedApplication().keyWindow?.rootViewController = controller
+                    OXGameController.sharedInstance.restartGame()
                     
                 } else {
                     // show alertview

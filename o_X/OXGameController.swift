@@ -12,14 +12,39 @@ class OXGameController{
     private init(){
         
     }
-    private var currentGame:OXGame = OXGame()
+    var numGame = 0
+    private var currentGame = OXGame(ID: 0, host: "David")
+    var gameList=[OXGame]()
+    private var trackedBoard = [Int]()
+    
     func getCurrentGame() -> OXGame {
         return currentGame
     }
+    
     func restartGame() {
-        currentGame = OXGame()
+        numGame+=1
+        gameList.append(currentGame)
+        currentGame = OXGame(ID: numGame,host: "David")
+        
     }
+    
     func playMove(boardInd:Int){
         currentGame.playMove(boardInd)
+        for ind in 1...OXGameController.sharedInstance.currentGame.board.count{
+            if OXGameController.sharedInstance.currentGame.board[ind-1] == CellType.Empty {
+                trackedBoard.append(ind)
+            }
+        }
+    }
+    
+    func playRandomMove()->Int{
+        let randomNumber = Int(arc4random_uniform(UInt32(trackedBoard.count - 1)))
+        OXGameController.sharedInstance.playMove(Int(trackedBoard[randomNumber]-1))
+        let newNum = trackedBoard[randomNumber]
+        trackedBoard=[Int]()
+        return newNum
+    }
+    func getGame(onCompletion onCompletion:([OXGame]?,String?)->Void){
+        onCompletion(gameList,nil)
     }
 }

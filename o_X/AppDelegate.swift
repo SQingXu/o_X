@@ -13,6 +13,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        if let password = NSUserDefaults.standardUserDefaults().stringForKey("CurrentUserPassword"){
+            if let email = NSUserDefaults.standardUserDefaults().stringForKey("CurrentUserEmail"){
+                UserController.sharedInstance
+                    .register(email: email, password: password, onCompletion: { user, message in
+                        if user != nil {
+                            // switch to main storyboard
+                            let controller = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+                            
+                            
+                            self.window?.rootViewController = controller
+                            OXGameController.sharedInstance.restartGame()
+                            
+                            
+                            print(password)
+                            print(email)
+                        } else { }
+                    })
+
+                
+            }
+        }
+        
         
         return true
     }

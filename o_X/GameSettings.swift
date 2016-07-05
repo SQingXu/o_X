@@ -7,4 +7,9 @@
 //
 
 import Foundation
-
+class GameSettings{
+    var gameModeSwitch:Bool
+    init(){
+        gameModeSwitch = true
+    }
+}
