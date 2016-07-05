@@ -13,8 +13,10 @@
 		02F782CD1D22966600E3BC29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02F782CC1D22966600E3BC29 /* Assets.xcassets */; };
 		02F782D01D22966600E3BC29 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02F782CE1D22966600E3BC29 /* LaunchScreen.storyboard */; };
 		487BFF441D27D8EF00F7C567 /* OnboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487BFF431D27D8EF00F7C567 /* OnboardViewController.swift */; };
-		487BFF661D2A696000F7C567 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487BFF651D2A696000F7C567 /* TableViewController.swift */; };
 		48A9A0671D2633890030BE25 /* GameSettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A9A0661D2633890030BE25 /* GameSettingController.swift */; };
+		48ACA1201D2BB0FD0014DA5C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48ACA11D1D2BB0FD0014DA5C /* LoginViewController.swift */; };
+		48ACA1211D2BB0FD0014DA5C /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48ACA11E1D2BB0FD0014DA5C /* RegisterViewController.swift */; };
+		48ACA1221D2BB0FD0014DA5C /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48ACA11F1D2BB0FD0014DA5C /* TableViewController.swift */; };
 		48F0A8DA1D23CB510082DD49 /* OXGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F0A8D91D23CB510082DD49 /* OXGame.swift */; };
 		48F0A8E51D241F300082DD49 /* OXGameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F0A8E41D241F300082DD49 /* OXGameController.swift */; };
 		48F0A8E71D2503370082DD49 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F0A8E61D2503370082DD49 /* SettingsViewController.swift */; };
@@ -22,8 +24,6 @@
 		48F0A92D1D25665F0082DD49 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F0A92C1D25665F0082DD49 /* User.swift */; };
 		48F0A92F1D25692E0082DD49 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F0A92E1D25692E0082DD49 /* UserController.swift */; };
 		48F0A9311D2577750082DD49 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48F0A9301D2577750082DD49 /* Onboarding.storyboard */; };
-		48F0A9351D2584770082DD49 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F0A9341D2584770082DD49 /* RegisterViewController.swift */; };
-		48F0A9371D2584960082DD49 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F0A9361D2584960082DD49 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,8 +35,10 @@
 		02F782CF1D22966600E3BC29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		02F782D11D22966600E3BC29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		487BFF431D27D8EF00F7C567 /* OnboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardViewController.swift; sourceTree = "<group>"; };
-		487BFF651D2A696000F7C567 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewController.swift; path = ../TableViewController.swift; sourceTree = "<group>"; };
 		48A9A0661D2633890030BE25 /* GameSettingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSettingController.swift; sourceTree = "<group>"; };
+		48ACA11D1D2BB0FD0014DA5C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		48ACA11E1D2BB0FD0014DA5C /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		48ACA11F1D2BB0FD0014DA5C /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		48F0A8D91D23CB510082DD49 /* OXGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OXGame.swift; sourceTree = "<group>"; };
 		48F0A8E41D241F300082DD49 /* OXGameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OXGameController.swift; sourceTree = "<group>"; };
 		48F0A8E61D2503370082DD49 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -44,8 +46,6 @@
 		48F0A92C1D25665F0082DD49 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		48F0A92E1D25692E0082DD49 /* UserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		48F0A9301D2577750082DD49 /* Onboarding.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
-		48F0A9341D2584770082DD49 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegisterViewController.swift; path = ../RegisterViewController.swift; sourceTree = "<group>"; };
-		48F0A9361D2584960082DD49 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = ../LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,9 +78,9 @@
 		02F782C41D22966600E3BC29 /* o_X */ = {
 			isa = PBXGroup;
 			children = (
-				487BFF651D2A696000F7C567 /* TableViewController.swift */,
-				48F0A9341D2584770082DD49 /* RegisterViewController.swift */,
-				48F0A9361D2584960082DD49 /* LoginViewController.swift */,
+				48ACA11D1D2BB0FD0014DA5C /* LoginViewController.swift */,
+				48ACA11E1D2BB0FD0014DA5C /* RegisterViewController.swift */,
+				48ACA11F1D2BB0FD0014DA5C /* TableViewController.swift */,
 				02F782C51D22966600E3BC29 /* AppDelegate.swift */,
 				02F782C71D22966600E3BC29 /* BoardViewController.swift */,
 				48F0A8E61D2503370082DD49 /* SettingsViewController.swift */,
@@ -182,18 +182,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				48A9A0671D2633890030BE25 /* GameSettingController.swift in Sources */,
-				48F0A9351D2584770082DD49 /* RegisterViewController.swift in Sources */,
-				487BFF661D2A696000F7C567 /* TableViewController.swift in Sources */,
 				487BFF441D27D8EF00F7C567 /* OnboardViewController.swift in Sources */,
+				48ACA1221D2BB0FD0014DA5C /* TableViewController.swift in Sources */,
 				02F782C81D22966600E3BC29 /* BoardViewController.swift in Sources */,
+				48ACA1211D2BB0FD0014DA5C /* RegisterViewController.swift in Sources */,
 				48F0A8DA1D23CB510082DD49 /* OXGame.swift in Sources */,
 				48F0A92F1D25692E0082DD49 /* UserController.swift in Sources */,
 				48F0A8E91D25073A0082DD49 /* GameSettings.swift in Sources */,
 				48F0A8E51D241F300082DD49 /* OXGameController.swift in Sources */,
 				48F0A8E71D2503370082DD49 /* SettingsViewController.swift in Sources */,
 				02F782C61D22966600E3BC29 /* AppDelegate.swift in Sources */,
-				48F0A9371D2584960082DD49 /* LoginViewController.swift in Sources */,
 				48F0A92D1D25665F0082DD49 /* User.swift in Sources */,
+				48ACA1201D2BB0FD0014DA5C /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
