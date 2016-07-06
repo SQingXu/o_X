@@ -12,27 +12,48 @@ class BoardViewController: UIViewController {
     
     @IBOutlet weak var boardView: UIView!
     
+    @IBOutlet weak var statusLabel: UILabel!
     @IBAction func cancelGame(sender: UIBarButtonItem) {
-        navigationController?.popViewControllerAnimated(true)
-        network_mode = false
+        print(OXGameController.sharedInstance.getCurrentGame().ID)
+        let request = OXGameController.sharedInstance.createMutableRequest(NSURL(string:"https://ox-backend.herokuapp.com/games/\(OXGameController.sharedInstance.getCurrentGame().ID)"), method: "DELETE", parameters: nil)
+        OXGameController.sharedInstance.executeRequest(request, requestCompletionFunction: {responseCode, json in
+            if responseCode/100 == 2{
+                self.navigationController?.popViewControllerAnimated(true)
+                self.network_mode = false
+            
+            }
+            else {
+                print(responseCode)
+                self.navigationController?.popViewControllerAnimated(true)
+                print("error in exit game")
+            }
+        })
     }
     
     @IBOutlet weak var newGameButton: UIButton!
     var network_mode:Bool = false
+    var userIdentity = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
             newGameButton?.hidden=true
             updateUI()
-        // Do any additional setup after loading the view, typically from a nib.
+            getGame()
+        if network_mode{
+            if UserController.sharedInstance.currentUser?.email != OXGameController.sharedInstance.getCurrentGame().host {
+                userIdentity = "guest"
+            }
+            else {
+                userIdentity = "host"
+            }
+        }
+        
+        print(OXGameController.sharedInstance.getCurrentGame().ID)
+        
+            // Do any additional setup after loading the view, typically from a nib.
     }
     override func viewWillAppear(animated: Bool) {
-        if network_mode == true{
-            self.restartGame()
-        }
-        else{
-            
-        }
+        
     }
     func restartGame(){
         for element in self.boardView.subviews {
@@ -53,11 +74,38 @@ class BoardViewController: UIViewController {
     
     @IBAction func positionButtonPressed(sender: UIButton) {
         if GameSettingController.sharedInstance.currentSettings.gameModeSwitch == true{
+            if network_mode == false{
             OXGameController.sharedInstance.playMove(sender.tag-1)
+            let whoseTurn:String=OXGameController.sharedInstance.getCurrentGame().whoJustPlayed().rawValue
             sender.enabled=false
-            
-            let whoseTurn:String=OXGameController.sharedInstance.getCurrentGame().whoseTurn().rawValue
+            print(OXGameController.sharedInstance.getCurrentGame().ID)
             sender.setTitle(whoseTurn, forState: UIControlState.Normal)
+            checkstate()
+            }
+            else {
+                let previous = OXGameController.sharedInstance.getCurrentGame().serialiseBoard()
+                OXGameController.sharedInstance.playMove(sender.tag-1)
+                let whoseTurn:String=OXGameController.sharedInstance.getCurrentGame().whoJustPlayed().rawValue
+                let request = OXGameController.sharedInstance.createMutableRequest(NSURL(string:"https://ox-backend.herokuapp.com/games/\(OXGameController.sharedInstance.getCurrentGame().ID)"), method: "PUT", parameters: ["board":OXGameController.sharedInstance.getCurrentGame().serialiseBoard()])
+                
+                OXGameController.sharedInstance.executeRequest(request, requestCompletionFunction: {responseCode, json in
+                    
+                    if responseCode/100==2{
+                        sender.enabled=false
+                        sender.setTitle(whoseTurn, forState: UIControlState.Normal)
+                    }
+                    else{
+                        let alert = UIAlertController(title: "Wrong Move!", message: "It is not your turn yet", preferredStyle: UIAlertControllerStyle.Alert)
+                        let aletAction2 = UIAlertAction(title: "Dismiss", style: .Cancel, handler: {(action) in  })
+                        alert.addAction(aletAction2)
+                        self.presentViewController(alert, animated: true, completion: nil)
+                        OXGameController.sharedInstance.getCurrentGame().deserialiseBoard(previous)
+                    }
+                    
+                    
+                })
+
+            }
             
         }
         else {
@@ -78,12 +126,14 @@ class BoardViewController: UIViewController {
 
             }
         }
+    }
         
         //made the button unclickable
         
         
         //check game state
-        if (OXGameController.sharedInstance.getCurrentGame().state()==OXGameState.Tie){
+    func checkstate(){
+       if (OXGameController.sharedInstance.getCurrentGame().state()==OXGameState.Tie){
             print("The Game is Tied")
             let alert = UIAlertController(title: "Game Over", message: "The Game Tied", preferredStyle: UIAlertControllerStyle.Alert)
             let aletAction2 = UIAlertAction(title: "Dismiss", style: .Cancel, handler: {(action) in
@@ -99,8 +149,8 @@ class BoardViewController: UIViewController {
 
             
         }
-        else if(OXGameController.sharedInstance.getCurrentGame().state()==OXGameState.Won){
-            let winnerName=OXGameController.sharedInstance.getCurrentGame().whoseTurn().rawValue
+        else if (OXGameController.sharedInstance.getCurrentGame().state()==OXGameState.Won){
+            let winnerName=OXGameController.sharedInstance.getCurrentGame().whoJustPlayed().rawValue
             let alert = UIAlertController(title: "Game Over", message: "The Player \(winnerName) won", preferredStyle: UIAlertControllerStyle.Alert)
             let aletAction2 = UIAlertAction(title: "Dismiss", style: .Cancel, handler: {(action) in
                 self.newGameButton?.hidden=false
@@ -114,7 +164,6 @@ class BoardViewController: UIViewController {
             }
         }
         else{
-            
         }
  
      
@@ -149,5 +198,51 @@ class BoardViewController: UIViewController {
         }
     
     }
+    
+    func getGame(){
+        let request = OXGameController.sharedInstance.createMutableRequest(NSURL(string:"https://ox-backend.herokuapp.com/games/\(OXGameController.sharedInstance.getCurrentGame().ID)"), method: "GET", parameters: nil)
+        OXGameController.sharedInstance.executeRequest(request, requestCompletionFunction: {responseCode,json in
+            if responseCode/100 == 2{
+                if OXGameController.sharedInstance.getCurrentGame().serialiseBoard() != json["board"].stringValue{
+                     OXGameController.sharedInstance.getCurrentGame().deserialiseBoard(json["board"].stringValue)
+                    self.checkstate()
+                }
+            else {OXGameController.sharedInstance.getCurrentGame().deserialiseBoard(json["board"].stringValue)
+                }
+            if json["state"].stringValue=="in_progress"{
+                if self.userIdentity == "host"{
+                    if OXGameController.sharedInstance.getCurrentGame().whoseTurn().rawValue == "X"{
+                         self.statusLabel.text = "Yours turn!"                }
+                    else{
+                         self.statusLabel.text = "Waiting for opponent's move..."
+                    }
+                }
+                else if self.userIdentity == "guest"{
+                    if OXGameController.sharedInstance.getCurrentGame().whoseTurn().rawValue == "O"{
+                        self.statusLabel.text = "Yours turn!"                }
+                    else{
+                        self.statusLabel.text = "Waiting for opponent's move..."
+                    }
+                }
+                
+                }
+            else if json["state"].stringValue == "open"{
+                self.statusLabel.text = "waiting for the other opponent"
+                }
+            else if json["state"].stringValue == "abandoned"{
+                self.statusLabel.text = "The player has just left"
+                }
+            
+                
+                self.updateUI()
+                self.getGame()
+            }
+            else{
+                print("get game error")
+            }
+        })
+
+    }
+    
     
 }

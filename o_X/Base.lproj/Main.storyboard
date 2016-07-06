@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -53,12 +54,20 @@
                                 <action selector="backButtonPressed:" destination="90W-hr-4Cf" id="VXg-Zq-atr"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="HlC-8A-k0y">
-                            <color key="tintColor" red="0.85882352939999995" green="0.0" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="addButtonPressed:" destination="90W-hr-4Cf" id="W4T-4T-iGh"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="HlC-8A-k0y">
+                                <color key="tintColor" red="0.85882352939999995" green="0.0" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="addButtonPressed:" destination="90W-hr-4Cf" id="W4T-4T-iGh"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Refresh" id="1qr-i8-Ubw">
+                                <color key="tintColor" red="0.85882352939999995" green="0.0" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="refreshButtonPressed:" destination="90W-hr-4Cf" id="YlF-RF-Fvl"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <segue destination="ry2-qe-Gqe" kind="push" identifier="newGame" id="gXX-K8-y96"/>
@@ -560,7 +569,7 @@
                                     <color key="titleColor" red="0.85882352939999995" green="0.0" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting, connecting to the other player..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDo-p2-ju7">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDo-p2-ju7">
                                 <rect key="frame" x="136" y="569" width="327" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" red="0.85882352939999995" green="0.0" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -601,6 +610,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="boardView" destination="vUu-uj-TIq" id="L48-nQ-sgR"/>
+                        <outlet property="statusLabel" destination="gDo-p2-ju7" id="uhd-FK-aRg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sU2-99-ETe" sceneMemberID="firstResponder"/>

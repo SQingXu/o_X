@@ -7,54 +7,90 @@
 //
 
 import Foundation
-class UserController {
+import Alamofire
+
+
+class UserController:WebService {
     
     static var sharedInstance = UserController()
-    private init() {}
+    private override init() {
+        super.init()
+    }
     
     var userList = [User]()
     var currentUser: User?
     let defaults = NSUserDefaults.standardUserDefaults()
     
     func register(email email: String, password: String, onCompletion: (User? ,String?) -> Void) {
-        
-        for user in userList{
-            if user.email == email {
-                onCompletion(nil, "The email is alreayd in use.")
-                return
-            }
-        }
-        
         if (password.characters.count < 6){
             onCompletion(nil, "Passwords must be at least 6 characters long.")
             return
         }
+        let user = ["email" : email, "password": password]
+        
+        let request = self.createMutableAnonRequest(NSURL(string: "https://ox-backend.herokuapp.com/auth"), method: "POST", parameters: user)
+        self.executeRequest(request, requestCompletionFunction: {(responseCode, json) in
+            print(json)
+            print(responseCode)
+            
+            var user:User = User(email: email, password: password, client: "", token:"")
+            user.email = email
+            user.password = "not_saved"
+            
+            if (responseCode == 200) {
+                user = User(email: json["data"]["email"].stringValue, password: "not_given_and_not_stored", client: json["data"]["client"].stringValue, token: json["data"]["token"].stringValue)
+                self.currentUser = user
+                onCompletion(user, nil)
+                self.defaults.setObject(email, forKey: "CurrentUserEmail")
+                self.defaults.setObject(password, forKey: "CurrentUserPassword")
+                onCompletion(user, nil)
+                self.defaults.synchronize()
+
+                
+            }
+            else {
+                let errorMessage = json["error"]["full_message"][0].stringValue
+                onCompletion(nil,errorMessage)
+            }
+            
+            
+        })
         
         
-        currentUser = User(email: email, password: password)
-        defaults.setObject(email, forKey: "CurrentUserEmail")
-        defaults.setObject(password, forKey: "CurrentUserPassword")
-        userList.append(currentUser!)
-        onCompletion(currentUser, nil)
-        defaults.synchronize()
+        
     }
     
     func login(email email:String, password:String,onCompletion:(User?,String?) -> Void) {
-        for user in userList {
-            if user.email == email && user.password == password {
-                currentUser = user
+        let user = ["email":email,"password" : password]
+        let request = createMutableAnonRequest(NSURL(string: "https://ox-backend.herokuapp.com/auth/sign_in"), method: "POST", parameters: user)
+        
+        self.executeRequest(request, requestCompletionFunction: {responseCode,json in
+            print(json)
+            print(responseCode)
+            
+            var user = User(email: email, password: password, client: "", token: "")
+            user.email = email
+            user.password = "not_saved"
+            
+            if (responseCode == 200){
+                user = User(email: json["data"]["email"].stringValue, password: "not_stored_not_saved", client: json["data"]["client"].stringValue, token: json["data"]["token"].stringValue)
+                self.currentUser = user
                 
-                defaults.setObject(email, forKey: "CurrentUserEmail")
-                defaults.setObject(password, forKey: "CurrentUserPassword")
-
+                self.defaults.setObject(email, forKey: "CurrentUserEmail")
+                self.defaults.setObject(password, forKey: "CurrentUserPassword")
+                
                 onCompletion(user, "Log in succeed")
-                defaults.synchronize()
+                self.defaults.synchronize()
                 return
             }
-        }
+            else{
+                onCompletion(nil, "Your username or password is incorrect")
+                return
+            }
+            
+        })
         
-        onCompletion(nil, "Your username or password is incorrect")
-        return
+        
     }
     func logout(onCompletion onCompletion: (String?) -> Void){
         
@@ -66,4 +102,5 @@ class UserController {
         defaults.synchronize()
         return
     }
-}
+    
+    }

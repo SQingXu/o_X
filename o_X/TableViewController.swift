@@ -10,15 +10,65 @@ import UIKit
 
 class TableViewController: UITableViewController {
 
+    @IBAction func refreshButtonPressed(sender: UIBarButtonItem) {
+        let request = OXGameController.sharedInstance.createMutableRequest(NSURL(string:"https://ox-backend.herokuapp.com/games"), method: "GET", parameters: nil)
+        OXGameController.sharedInstance.executeRequest(request, requestCompletionFunction: {responseCode, json in
+            
+            if responseCode == 200{
+                self.gameList = [OXGame]()
+                for (_,game) in json{
+                    //game = [string, json]
+                    
+                    let id = game["id"].intValue
+                    let host = game["host_user"]["uid"].stringValue
+                    let oxGame = OXGame(ID:id,host:host,boardString: "_________")
+                    self.gameList.append(oxGame)
+                    }
+                
+            }
+            else {
+                print("Not getting games")
+            }
+        })
+    self.tableView.reloadData()
+        
+    }
     @IBAction func addButtonPressed(sender: UIBarButtonItem) {
-        performSegueWithIdentifier("newGame", sender: sender)
+        let request = OXGameController.sharedInstance.createMutableRequest(NSURL(string:"https://ox-backend.herokuapp.com/games/"), method: "POST", parameters: nil)
+        OXGameController.sharedInstance.executeRequest(request, requestCompletionFunction: {responseCode, json in
+            print(responseCode)
+            print(json)
+            if responseCode/100 == 2{
+                self.boardString = json["board"].stringValue
+                print(self.boardString)
+                OXGameController.sharedInstance.setCurrentGame(json["id"].intValue, host: json["host_user"]["uid"].stringValue, boardString: json["board"].stringValue)
+                self.performSegueWithIdentifier("newGame", sender: sender)
+            }
+            else {
+                print("unable create a new game")
+            }
+        })
     }
     @IBAction func backButtonPressed(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
 
     }
+    var boardString:String?
+    var gameList = [OXGame]()
+    var gameID:Int?
+    var host: String?
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        OXGameController.sharedInstance.getGame(onCompletion: {gameList,message in
+            if gameList != nil {
+            self.gameList = gameList!
+            self.tableView.reloadData()
+            }
+            else {
+                print(message)
+            }
+        })
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -32,10 +82,12 @@ class TableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     func createList()->[String]{
-        var stringList = [String]()
-        for game in OXGameController.sharedInstance.gameList{
+        var stringList:[String] = []
+        
+        for game in gameList{
             let newString = "ID: \(game.ID), host: \(game.host)"
             stringList.append(newString)
+
         }
         return stringList
     }
@@ -49,30 +101,39 @@ class TableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return OXGameController.sharedInstance.gameList.count
+        
+        return gameList.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var stringList = createList()
-        for string in stringList{
-        print (string)
-        }
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("new", forIndexPath: indexPath)
-
+       
         // Configure the cell...
         cell.textLabel?.text = String(stringList[indexPath.row])
 
         return cell
     }
    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    performSegueWithIdentifier("newGame", sender: self.tableView.cellForRowAtIndexPath(indexPath))
-        
+    let gameID = gameList[indexPath.row].ID
+    let request = OXGameController.sharedInstance.createMutableRequest(NSURL(string:"https://ox-backend.herokuapp.com/games/\(gameID)/join"), method: "GET", parameters: nil)
+    OXGameController.sharedInstance.executeRequest(request, requestCompletionFunction: {responseCode, json in
+        if responseCode/100 == 2{
+            OXGameController.sharedInstance.setCurrentGame(json["id"].intValue, host: json["host_user"]["uid"].stringValue, boardString: json["board"].stringValue)
+            self.performSegueWithIdentifier("newGame", sender: self.tableView.cellForRowAtIndexPath(indexPath))
+        }
+        else{
+            print("unable to join a game")
+        }
+    })
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "newGame"{
             if let dvc = segue.destinationViewController as? BoardViewController{
                 dvc.network_mode = true
+                
                 print(dvc.network_mode)
                             }
         }

@@ -7,13 +7,13 @@
 //
 
 import Foundation
-class OXGameController{
+class OXGameController:WebService{
     static let sharedInstance = OXGameController()
-    private init(){
+    private override init(){
         
     }
     var numGame = 0
-    private var currentGame = OXGame(ID: 0, host: "David")
+    private var currentGame = OXGame(ID: 0, host: "David",boardString:"_________")
     var gameList=[OXGame]()
     private var trackedBoard = [Int]()
     
@@ -21,13 +21,15 @@ class OXGameController{
         return currentGame
     }
     
+    func setCurrentGame(ID: Int, host:String,boardString:String) {
+        currentGame = OXGame(ID: ID, host: host, boardString: boardString)
+    }
+    
     func restartGame() {
         numGame+=1
         gameList.append(currentGame)
-        currentGame = OXGame(ID: numGame,host: "David")
-        
+        currentGame = OXGame(ID: numGame, host: "David",boardString:"_________")
     }
-    
     func playMove(boardInd:Int){
         currentGame.playMove(boardInd)
         for ind in 1...OXGameController.sharedInstance.currentGame.board.count{
@@ -35,7 +37,10 @@ class OXGameController{
                 trackedBoard.append(ind)
             }
         }
+
     }
+   
+        
     
     func playRandomMove()->Int{
         let randomNumber = Int(arc4random_uniform(UInt32(trackedBoard.count - 1)))
@@ -45,6 +50,26 @@ class OXGameController{
         return newNum
     }
     func getGame(onCompletion onCompletion:([OXGame]?,String?)->Void){
-        onCompletion(gameList,nil)
+        var gameList = [OXGame]()
+        let currentUser = UserController.sharedInstance.currentUser
+        let user =  ["email":currentUser!.email,"password" : currentUser!.password]
+        let request = createMutableRequest(NSURL(string:"https://ox-backend.herokuapp.com/games"), method: "GET", parameters: user)
+        self.executeRequest(request, requestCompletionFunction: {responseCode,json in
+            if responseCode == 200{
+                for (_,game) in json{
+                    //game = [string, json]
+                    
+                    let id = game["id"].intValue
+                    let host = game["host_user"]["uid"].stringValue
+                    let oxGame = OXGame(ID:id,host:host,boardString: "_________")
+                    gameList.append(oxGame)
+                    onCompletion(gameList,nil)
+                }
+                
+            }
+            else {
+                onCompletion(nil,"Not getting games")
+            }
+        })
     }
 }

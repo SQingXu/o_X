@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let password = NSUserDefaults.standardUserDefaults().stringForKey("CurrentUserPassword"){
             if let email = NSUserDefaults.standardUserDefaults().stringForKey("CurrentUserEmail"){
                 UserController.sharedInstance
-                    .register(email: email, password: password, onCompletion: { user, message in
+                    .login(email: email, password: password, onCompletion: { user, message in
                         if user != nil {
                             // switch to main storyboard
                             let controller = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
@@ -25,15 +26,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             self.window?.rootViewController = controller
                             OXGameController.sharedInstance.restartGame()
                             
-                            
-                            print(password)
-                            print(email)
                         } else { }
                     })
 
                 
             }
         }
+        
+        /*Alamofire.request(.GET, "https://httpbin.org/get", parameters: ["foo": "bar"])
+            .responseJSON { response in
+                print(response.request)  // original URL request
+                print(response.response) // URL response
+                print(response.data)     // server data
+                print(response.result)   // result of response serialization
+                
+                if let JSON = response.result.value {
+                    print("JSON: \(JSON)")
+                }
+        }*/
+
         
         
         return true
